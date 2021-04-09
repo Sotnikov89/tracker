@@ -1,25 +1,24 @@
-package ru.job4j.trackerupdate;
+package ru.job4j.tracker;
 
-public class ShowByIdAction implements UserAction {
+public class DeleteAction implements UserAction {
 
     private final Output output;
 
-    public ShowByIdAction(Output output) {
+    public DeleteAction(Output output) {
         this.output = output;
     }
 
     @Override
     public String name() {
-        return "Find Item By ID";
+        return "Delete Item";
     }
 
     @Override
     public boolean execute(Input input, Tracker tracker) {
-        output.println("=== Find Item By ID ===");
+        output.println("=== Delete Item ===");
         int id = input.askInt("Enter id: ");
-        Item item = tracker.findById(id);
-        if (item != null) {
-            output.println(item);
+        if (tracker.delete(id)) {
+            output.println("Item was deleted.");
         } else {
             output.println(String.format("Item with id=%s not found.", id));
         }

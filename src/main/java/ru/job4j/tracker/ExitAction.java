@@ -1,4 +1,4 @@
-package ru.job4j.trackerupdate;
+package ru.job4j.tracker;
 
 public class ExitAction implements UserAction {
 
