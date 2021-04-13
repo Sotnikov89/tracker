@@ -13,13 +13,14 @@ public class HbmTracker implements Store, AutoCloseable{
 
     public static void main(String[] args) {
         HbmTracker hbmTracker = new HbmTracker();
-        for (Item item : hbmTracker.findAll()) {
-            System.out.println(item.getId());
-            System.out.println(item.getName());
-            System.out.println(item.getDescription());
+        for (Item item:hbmTracker.findAll()){
+            System.out.println(item);
         }
-        System.out.println(hbmTracker.findById(2));
-        System.out.println(hbmTracker.findByName("Name-2"));
+        Item item = new Item();
+        item.setName("Anna");
+        System.out.println(hbmTracker.replace(1,item));
+        System.out.println(hbmTracker.findById(1));
+
     }
 
     private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -42,10 +43,17 @@ public class HbmTracker implements Store, AutoCloseable{
     public boolean replace(int id, Item item) {
         boolean result = id > 0;
         if (result) {
-            item.setId(id);
             Session session = sf.openSession();
             session.beginTransaction();
-            session.update(item);
+            Item itemExist = session.get(Item.class, id);
+            result = itemExist != null;
+            if (result) {
+                itemExist.setId(id);
+                itemExist.setName(item.getName());
+                itemExist.setDescription(item.getDescription());
+                itemExist.setCreated(item.getCreated());
+                session.update(itemExist);
+            }
             session.getTransaction().commit();
             session.close();
         }
@@ -59,7 +67,10 @@ public class HbmTracker implements Store, AutoCloseable{
             Session session = sf.openSession();
             session.beginTransaction();
             Item item = session.get(Item.class, id);
-            session.delete(item);
+            result = item != null;
+            if (result) {
+                session.delete(item);
+            }
             session.getTransaction().commit();
             session.close();
         }
