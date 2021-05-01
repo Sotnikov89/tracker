@@ -9,16 +9,16 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class HbmTracker implements Store, AutoCloseable{
+public class HbmTracker implements Store, AutoCloseable {
 
     public static void main(String[] args) {
         HbmTracker hbmTracker = new HbmTracker();
-        for (Item item:hbmTracker.findAll()){
+        for (Item item:hbmTracker.findAll()) {
             System.out.println(item);
         }
         Item item = new Item();
         item.setName("Anna");
-        System.out.println(hbmTracker.replace(1,item));
+        System.out.println(hbmTracker.replace(1, item));
         System.out.println(hbmTracker.findById(1));
 
     }
