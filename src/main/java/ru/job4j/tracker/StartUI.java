@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -8,13 +8,10 @@ import java.util.List;
 @Component
 public class StartUI {
 
-    private final Output output;
-    private final Input input;
-
-    public StartUI(Output output, Input input) {
-        this.output = output;
-        this.input = input;
-    }
+    @Autowired
+    private Output output;
+    @Autowired
+    private Input input;
 
     public void init(Tracker tracker, List<UserAction> actions) {
         boolean run = true;
@@ -50,6 +47,6 @@ public class StartUI {
                 new ShowByNameAction(output),
                 new ExitAction(output)
         );
-        new StartUI(output, input).init(tracker, actions);
+        new StartUI().init(tracker, actions);
     }
 }
