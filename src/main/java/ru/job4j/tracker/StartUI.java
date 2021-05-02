@@ -1,7 +1,11 @@
 package ru.job4j.tracker;
 
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class StartUI {
 
     private final Output output;

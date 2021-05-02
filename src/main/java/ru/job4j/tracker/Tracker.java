@@ -1,8 +1,11 @@
 package ru.job4j.tracker;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Tracker implements Store {
 
     private final List<Item> items = new ArrayList<>();
