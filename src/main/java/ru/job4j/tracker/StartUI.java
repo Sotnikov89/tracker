@@ -8,10 +8,13 @@ import java.util.List;
 @Component
 public class StartUI {
 
-    @Autowired
     private Output output;
-    @Autowired
     private Input input;
+
+    public StartUI(Output output, Input input) {
+        this.output = output;
+        this.input = input;
+    }
 
     public void init(Tracker tracker, List<UserAction> actions) {
         boolean run = true;
@@ -47,6 +50,6 @@ public class StartUI {
                 new ShowByNameAction(output),
                 new ExitAction(output)
         );
-        new StartUI().init(tracker, actions);
+        new StartUI(output, input).init(tracker, actions);
     }
 }
