@@ -5,12 +5,14 @@ import java.util.List;
 public class StartUI {
 
     private final Output output;
+    private final Input input;
 
-    public StartUI(Output output) {
+    public StartUI(Output output, Input input) {
         this.output = output;
+        this.input = input;
     }
 
-    public void init(Input input, Tracker tracker, List<UserAction> actions) {
+    public void init(Tracker tracker, List<UserAction> actions) {
         boolean run = true;
         while (run) {
             this.showMenu(actions);
@@ -44,6 +46,6 @@ public class StartUI {
                 new ShowByNameAction(output),
                 new ExitAction(output)
         );
-        new StartUI(output).init(input, tracker, actions);
+        new StartUI(output, input).init(tracker, actions);
     }
 }
